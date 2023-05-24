@@ -11,34 +11,21 @@
 
 using namespace std;
 
+#define DEBUG(x)  cerr << __FILE__ << " (" << __LINE__ << ") " << #x << " == " << x << endl;
 #define MAX_INCLUDE_DEPTH 10
+
 YY_BUFFER_STATE include_stack[MAX_INCLUDE_DEPTH];
 int include_stack_ptr = 0;
 
 long included_files_counter = 0L;
 long word_counter = 0L;
 long sentence_counter = 0L;
-	
-#ifdef _WIN32
-    // needed by Visual Studio compiler:
-	int isatty (int a)  // is deprecated, use _isatty instead
-	{
-	    return _isatty(a);
-	}
-	
-	int fileno (FILE * f)
-	{
-	    return _fileno(f);
-	}
-#endif
-	
-#define DEBUG(x)  cerr << __FILE__ << " (" << __LINE__ << ") " << #x << " == " << x << endl;
-
 %}
 
 %%
 "include"           BEGIN(INCLUDE);
 ([^\n]*\n{2,})      { sentence_counter++; }
+[^a-z\n]*\n{1,2}         { sentence_counter++; }
 [a-zA-Z0-9]+        { word_counter++; }
 [^a-z\n]*\n?        ECHO;
 

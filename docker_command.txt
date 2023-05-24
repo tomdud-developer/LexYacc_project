@@ -1,3 +1,4 @@
 docker run -it -v "C:\Users\tomas\Desktop\Studia_magisterskie\WDK\LAB\LexYacc_project:/users/tom" ubuntu bash
-apt install make
-apt install build-essential
+sudo apt update
+sudo apt install make
+sudo apt install build-essential
